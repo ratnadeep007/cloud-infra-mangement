@@ -11,8 +11,10 @@ on:
       - 'ec2-controller/*.json'
 name: Deploy EC2 Controller
 jobs:
-  deploy:
-    name: deploy
+  job1:
+    env:
+      working-directory: ./ec2-controller
+    name: Deploy ec2-controller
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
@@ -23,3 +25,19 @@ jobs:
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      working-directory: ${{ env.working-directory }}
+  job2:
+    env:
+      working-directory: ./aws-cloud-control-rest-api
+    name: Deploy ec2-controller
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: serverless deploy
+      uses: serverless/github-action@master
+      with:
+        args: deploy
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      working-directory: ${{ env.working-directory }}
