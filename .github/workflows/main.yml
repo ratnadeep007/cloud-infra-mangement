@@ -2,9 +2,13 @@ on:
   push:
     branches:
       - master
-    paths:
-      - ec2-controller/*/**
-      - aws-cloud-control-rest-api/*/**
+    path:
+      - 'aws-cloud-control-rest-api/*.py'
+      - 'aws-cloud-control-rest-api/*.yml'
+      - 'aws-cloud-control-rest-api/*.json'
+      - 'ec2-controller/*.py'
+      - 'ec2-controller/*.yml'
+      - 'ec2-controller/*.json'
 name: Deploy EC2 Controller
 jobs:
   deploy:
