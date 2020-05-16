@@ -12,6 +12,10 @@
 # Happy Coding!
 
 service: aws-cloud-control-rest-api
+
+plugins:
+  - serverless-python-requirements
+  - serverless-wsgi
 # app and org for use with dashboard.serverless.com
 #app: your-app-name
 #org: your-org-name
@@ -23,6 +27,12 @@ service: aws-cloud-control-rest-api
 provider:
   name: aws
   runtime: python3.8
+  region: ap-south-1
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "ec2:*"
+      Resource: "*"
 
 # you can overwrite defaults here
 #  stage: dev
@@ -57,13 +67,19 @@ provider:
 #    - exclude-me.py
 #    - exclude-me-dir/**
 
+custom:
+  wsgi:
+    app: handler.app
+    packRequirement: false
+  pythonRequirements:
+    dockerizePip: non-linux
+
 functions:
-  hello:
-    handler: handler.rest
+  restApi:
+    handler: wsgi.handler
     events:
-    - http:
-        path: aws/data
-        method: get
+      - http: ANY /
+      - http: 'ANY {proxy+}'
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details

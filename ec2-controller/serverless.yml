@@ -23,6 +23,7 @@ service: ec2-controller
 provider:
   name: aws
   runtime: python3.8
+  region: ap-south-1
   iamRoleStatements:
     - Effect: "Allow"
       Action:
