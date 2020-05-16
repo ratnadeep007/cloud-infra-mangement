@@ -69,6 +69,7 @@ functions:
     handler: handler.handler
     events:
     - schedule: cron(30 18 * * ? *)
+    - schedule: cron(30 13 * * ? *)
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
