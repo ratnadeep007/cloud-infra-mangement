@@ -3,7 +3,8 @@ on:
     branches:
       - master
     paths:
-      - ec2-controller/**
+      - ec2-controller/*/**
+      - aws-cloud-control-rest-api/*/**
 name: Deploy EC2 Controller
 jobs:
   deploy:
