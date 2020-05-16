@@ -3,8 +3,8 @@ on:
     branches:
       - master
     paths:
-      - ec2-controller
-name: Deploy master branch
+      - ec2-controller/**
+name: Deploy EC2 Controller
 jobs:
   deploy:
     name: deploy
