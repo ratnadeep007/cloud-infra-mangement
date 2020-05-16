@@ -23,6 +23,12 @@ service: ec2-controller
 provider:
   name: aws
   runtime: python3.8
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "ec2:*"
+      Resource: "*"
+            
 
 # you can overwrite defaults here
 #  stage: dev
@@ -62,7 +68,6 @@ functions:
     handler: handler.handler
     events:
     - schedule: cron(30 18 * * ? *)
-            
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
