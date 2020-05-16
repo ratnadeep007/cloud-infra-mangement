@@ -1,9 +1,9 @@
 import boto3
-from flask import Flask
+from flask import Flask, jsonify
 app = Flask(__name__)
 
 @app.route("/ec2")
-def rest(event, context):
+def rest():
   ec2 = boto3.resource('ec2', region_name='ap-south-1')
   ec2_instances = []
 
@@ -15,6 +15,16 @@ def rest(event, context):
   ]
   try:
     for instance in ec2.instances.filter(Filters=filter):
-      ec2_instances.append(instance)
+      add_instance = {
+        'id': instance.id,
+        'type': instance.instance_type,
+        'image_id': instance.image_id,
+        'status': instance.state,
+        'tags': instance.tags 
+      }
+      print(instance.tags)
+      ec2_instances.append(add_instance)
     print(ec2_instances)
-    return "okay"
+  except Exception as e:
+    print(e)
+  return jsonify(ec2_instances)
